@@ -7,6 +7,7 @@ ENV confd_version 0.10.0
 
 # Copy our application files
 COPY bower_components /usr/share/nginx/html/bower_components
+RUN mkdir -p /usr/share/nginx/html/
 COPY index.html /usr/share/nginx/html
 COPY css /usr/share/nginx/html/css
 COPY js /usr/share/nginx/html/js
