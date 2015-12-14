@@ -28,6 +28,7 @@ Then, create a Docker node with docker-machine:
 ```
 docker-machine create -d virtualbox dev
 eval $(docker-machine env dev)
+```
 
 Finally, build the container:
 
