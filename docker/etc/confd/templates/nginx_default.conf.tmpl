@@ -1,0 +1,36 @@
+upstream backend {
+	{{getv "/nginx/backend/servers"}}
+
+   # route connections to the server with least current connections
+   least_conn;    
+
+    # maintain a maximum of 20 idle connections to each upstream server; this should
+    # improve latency
+   keepalive 20;
+}
+
+server {
+    listen       80;
+    server_name  localhost;
+    
+    location / {
+        alias /usr/share/nginx/html/;
+        index  index.html index.htm;
+    }    
+
+    location = /50x.html {
+        root   /usr/share/nginx/html;
+    }
+
+    # proxy requests to our tomcat server
+    location /todo_backend/ {
+        proxy_pass http://backend/;
+
+        # required for keepalive
+        proxy_http_version 1.1;
+        proxy_set_header Connection "";
+        
+        # disable caching
+        expires off;
+    }
+}
