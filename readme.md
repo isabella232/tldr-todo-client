@@ -33,7 +33,7 @@ eval $(docker-machine env dev)
 Finally, build the container:
 
 ```
-docker build -t client .
+docker build -t tldr/todo-client .
 ```
 
 Running the container
@@ -41,7 +41,7 @@ Running the container
 Use the following command:
 
 ```
-docker run -d client
+docker run -d -p 8080:80 tldr/todo-client
 ```
 
 Developing the application
